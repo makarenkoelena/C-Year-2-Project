@@ -295,7 +295,7 @@ Card pickCard(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numOf
 		do {
 			printf("Please enter card's id: \n");
 			scanf("%d", &id);
-		} while (id < 0 || playersCardsData[playerIndex][id].value == NULL || playerIndex < id);
+		} while (id < 0 || numOfPlayers < id || playersCardsData[playerIndex][id].value == NULL);
 
 		pickedCard = playersCardsData[playerIndex][id];
 		printf("card's id is: %d \n", id);
