@@ -31,7 +31,7 @@ void createPlayers(int numOfPlayers, Player players[MAX_NUM_OF_PLAYERS]);
 void displayPlayers(int numOfPlayers, Player players[MAX_NUM_OF_PLAYERS]);
 void diplayPlayersCards(Player players[MAX_NUM_OF_PLAYERS], Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numOfPlayers);
 void diplaySinglePlayerCards(Player players[MAX_NUM_OF_PLAYERS], Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int playerIndex);
-//Card pickCard(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numOfPlayers);
+Card pickCard(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numOfPlayers);
 void dealCards(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numOfPlayers);
 void displayChosenCards(Player players[MAX_NUM_OF_PLAYERS], Card cardsOnTheTable[NUM_OF_CARDS]);
 //bool findSameCards(Card cardsOnTheTable[NUM_OF_CARDS], int numOfPlayers);
@@ -59,7 +59,7 @@ void main()
 	do {
 		numOfPlayers = getNumOfPlayers();
 		createPlayers(numOfPlayers, players);
-		//displayPlayers(numOfPlayers, players); 
+		//displayPlayers(numOfPlayers, players);
 		dealCards(playersCardsData, numOfPlayers);
 		diplayPlayersCards(players, playersCardsData, numOfPlayers);
 
@@ -81,13 +81,13 @@ void main()
 				do {
 					printf("Please enter card's id: \n");
 					scanf("%d", &id);
-				} while (id < 0 || id > NUM_OF_CARDS);// || playersCardsData[playerIndex][i].value = NULL <-- the user cant choose the card which he has already picked in previous rounds (they are assigned to null/0
+				} while (id < 0 || id > NUM_OF_CARDS || playersCardsData[playerIndex][id].value != NULL);// || playersCardsData[playerIndex][i].value = NULL <-- the user cant choose the card which he has already picked in previous rounds (they are assigned to null/0
 				//tried to put this stuff into a separate method, failed
-				//pickCard(playersCardsData, numOfPlayers);
+				cardsOnTheTable[playerIndex] = pickCard(playersCardsData, numOfPlayers);
 
 				//populate Card cardsOnTheTable[NUM_OF_CARDS] with chosen cards
-				cardsOnTheTable[playerIndex].value = playersCardsData[playerIndex][id - 1].value;
-				//printf("card's value is: %d \n", cardsOnTheTable[playerIndex].value);	
+				// cardsOnTheTable[playerIndex].value = playersCardsData[playerIndex][id - 1].value;
+				//printf("card's value is: %d \n", cardsOnTheTable[playerIndex].value);
 				//clearScreen();
 
 				// delete the chosen cards (actually, assign them to zero) and show the rest of the cards
@@ -104,7 +104,7 @@ void main()
 			//findSameCards(cardsOnTheTable, numOfPlayers);
 			printf("\n");
 
-			// find the round winner and assign the score 
+			// find the round winner and assign the score
 			for (int i = 0; i < numOfPlayers; i++) {
 				if (i == findTheRoundWinner(cardsOnTheTable, numOfPlayers)) {
 					players[i].score += calcRoundTotal(cardsOnTheTable, numOfPlayers);
@@ -269,7 +269,7 @@ void dealCards(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numO
 		for (card = 0; card < 4; card++) {
 			playersCardsData[player][card].suit = card;//number from 0 till 3 --> at least  1 of each suit
 			//printf("%2d | ", playersCardsData[player][card].suit);
-			playersCardsData[player][card].value = rand() % 12 + 2;//generates random numbers from 2 till 14 
+			playersCardsData[player][card].value = rand() % 12 + 2;//generates random numbers from 2 till 14
 			//printf("%2d |", playersCardsData[player][card].value);
 		}//inner for
 		//deal the rest of the cards
@@ -287,19 +287,22 @@ void dealCards(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numO
 	}//outer for
 }
 //==============================================================
-//Card pickCard(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numOfPlayers) {
-//	Card pickedCard;
-//	int id;
-//	for (int playerIndex = 0; playerIndex < numOfPlayers; playerIndex++) {
-//		do {
-//			printf("Please enter card's id: \n");
-//			scanf("%d", &id);
-//		} while (id < 0 || playersCardsData[playerIndex][card].value == NULL || playerIndex < id);
-//	}
-//	pickedCard = playersCardsData[playerIndex][id].value;
-//	printf("card's id is: %d \n", id);
-//	return pickedCard;
-//}
+Card pickCard(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numOfPlayers) {
+	Card pickedCard;
+	int id;
+	for (int playerIndex = 0; playerIndex < numOfPlayers; playerIndex++) {
+		// clearScreen();
+		do {
+			printf("Please enter card's id: \n");
+			scanf("%d", &id);
+		} while (id < 0 || playersCardsData[playerIndex][id].value == NULL || playerIndex < id);
+
+		pickedCard = playersCardsData[playerIndex][id];
+		printf("card's id is: %d \n", id);
+		// TODO: add some hold functionality. Like "Enter 'c' to continue"
+	}
+	return pickedCard;
+}
 //==============================================================
 void displayChosenCards(Player players[MAX_NUM_OF_PLAYERS], Card cardsOnTheTable[NUM_OF_CARDS])
 {
@@ -429,7 +432,7 @@ void clearScreen()
 //==============================================
 void optionToSaveTheGame(char fileName[25], int numOfRounds, int numOfPlayers, Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], Player players[MAX_NUM_OF_PLAYERS]) {
 	char answer;
-	char fileName[15];
+	// char fileName[15];
 	printf("Do you want to save this game? (Y (yes) / N (no) \n");
 	scanf(" %c", &answer);
 	//printf("Answer is: %c \n", answer);
