@@ -77,13 +77,6 @@ void main()
 				cardsOnTheTable[playerIndex] = pickCard(playersCardsData, numOfPlayers, playerIndex);
 				//clearScreen();
 
-				// delete the chosen cards (actually, assign them to zero) and show the rest of the cards
-				for (int i = 0; i < NUM_OF_CARDS; i++) {
-					if (i == (id - 1)) {
-						playersCardsData[playerIndex][i].value = NULL;
-					}
-					//printf(" %d ", playersCardsData[playerIndex][i].value);
-				}
 				printf("\n");
 			}//for players
 
