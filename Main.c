@@ -281,9 +281,10 @@ Card pickCard(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numOf
 	do {
 		printf("Please enter card's id: \n");
 		scanf("%d", &id);
-	} while (id < 0 || numOfPlayers < id || playersCardsData[playerIndex][id].value == NULL);
+	} while (id < 0 || numOfPlayers < id || playersCardsData[playerIndex][id -1].value == NULL);
 
 	pickedCard = playersCardsData[playerIndex][id -1];
+	playersCardsData[playerIndex][id -1].value = NULL; // mark card as used(remove from players deck)
 	printf("Player[id:%d] picked card[id:%d, valiue:%d]\n", playerIndex, id, playersCardsData[playerIndex][id -1].value);
 
 	return pickedCard;
