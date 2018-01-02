@@ -78,10 +78,10 @@ void main()
 
 
 				//this part doesn't work
-				do {
-					printf("Please enter card's id: \n");
-					scanf("%d", &id);
-				} while (id < 0 || id > NUM_OF_CARDS || playersCardsData[playerIndex][id].value != NULL);// || playersCardsData[playerIndex][i].value = NULL <-- the user cant choose the card which he has already picked in previous rounds (they are assigned to null/0
+				// do {
+				// 	printf("Please enter card's id: \n");
+				// 	scanf("%d", &id);
+				// } while (id < 0 || id > NUM_OF_CARDS || playersCardsData[playerIndex][id].value != NULL);// || playersCardsData[playerIndex][i].value = NULL <-- the user cant choose the card which he has already picked in previous rounds (they are assigned to null/0
 				//tried to put this stuff into a separate method, failed
 				cardsOnTheTable[playerIndex] = pickCard(playersCardsData, numOfPlayers);
 
