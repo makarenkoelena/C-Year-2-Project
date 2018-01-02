@@ -73,21 +73,8 @@ void main()
 			for (int playerIndex = 0; playerIndex < numOfPlayers; playerIndex++) {
 				printf("Player %d: \n", playerIndex + 1);
 				diplaySinglePlayerCards(players, playersCardsData, playerIndex);
-
-
-
-
-				//this part doesn't work
-				// do {
-				// 	printf("Please enter card's id: \n");
-				// 	scanf("%d", &id);
-				// } while (id < 0 || id > NUM_OF_CARDS || playersCardsData[playerIndex][id].value != NULL);// || playersCardsData[playerIndex][i].value = NULL <-- the user cant choose the card which he has already picked in previous rounds (they are assigned to null/0
-				//tried to put this stuff into a separate method, failed
-				cardsOnTheTable[playerIndex] = pickCard(playersCardsData, numOfPlayers, playerIndex);
-
 				//populate Card cardsOnTheTable[NUM_OF_CARDS] with chosen cards
-				// cardsOnTheTable[playerIndex].value = playersCardsData[playerIndex][id - 1].value;
-				//printf("card's value is: %d \n", cardsOnTheTable[playerIndex].value);
+				cardsOnTheTable[playerIndex] = pickCard(playersCardsData, numOfPlayers, playerIndex);
 				//clearScreen();
 
 				// delete the chosen cards (actually, assign them to zero) and show the rest of the cards
@@ -290,17 +277,15 @@ void dealCards(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numO
 Card pickCard(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numOfPlayers, int playerIndex) {
 	Card pickedCard;
 	int id;
-	// for (int playerIndex = 0; playerIndex < numOfPlayers; playerIndex++) {
-		// clearScreen();
-		do {
-			printf("Please enter card's id: \n");
-			scanf("%d", &id);
-		} while (id < 0 || numOfPlayers < id || playersCardsData[playerIndex][id].value == NULL);
 
-		pickedCard = playersCardsData[playerIndex][id -1];
-		printf("Player[id:%d] picked card[id:%d, valiue:%d]\n", playerIndex, id, playersCardsData[playerIndex][id -1].value);
-		// TODO: add some hold functionality. Like "Enter 'c' to continue"
-	// }
+	do {
+		printf("Please enter card's id: \n");
+		scanf("%d", &id);
+	} while (id < 0 || numOfPlayers < id || playersCardsData[playerIndex][id].value == NULL);
+
+	pickedCard = playersCardsData[playerIndex][id -1];
+	printf("Player[id:%d] picked card[id:%d, valiue:%d]\n", playerIndex, id, playersCardsData[playerIndex][id -1].value);
+
 	return pickedCard;
 }
 //==============================================================
