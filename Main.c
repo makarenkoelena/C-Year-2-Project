@@ -297,8 +297,8 @@ Card pickCard(Card playersCardsData[MAX_NUM_OF_PLAYERS][NUM_OF_CARDS], int numOf
 			scanf("%d", &id);
 		} while (id < 0 || numOfPlayers < id || playersCardsData[playerIndex][id].value == NULL);
 
-		pickedCard = playersCardsData[playerIndex][id];
-		printf("Player[id:%d] picked card[id:%d, valiue:%d]\n", playerIndex, id, playersCardsData[playerIndex][id].value);
+		pickedCard = playersCardsData[playerIndex][id -1];
+		printf("Player[id:%d] picked card[id:%d, valiue:%d]\n", playerIndex, id, playersCardsData[playerIndex][id -1].value);
 		// TODO: add some hold functionality. Like "Enter 'c' to continue"
 	// }
 	return pickedCard;
