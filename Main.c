@@ -1,5 +1,5 @@
 ﻿//libraries
-#include <conio.h>
+#include <stdio.h>
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -127,7 +127,7 @@ void main()
 			//optionToSaveTheGame(fileName, numOfRounds, numOfPlayers, playersCardsData, players);
 		}
 	} while (again == 1);
-	getch();
+	getchar();
 }// end of main
  //======================================================== end of main ==============================================================================================================
 int getNumOfPlayers() {
